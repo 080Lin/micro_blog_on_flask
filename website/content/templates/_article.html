@@ -1,0 +1,5 @@
+<div class='col-6'>
+    <a href='{{ url_for("content.view_article", article_name=article.name) }}'>{{ article.name }}</a>
+    <p>By: {{ article.art_author.username }}</p>
+    <p>Thema: {{ article.theme }}. Created at: {{ article.created_at }}</p>
+</div>

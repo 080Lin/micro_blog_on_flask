@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Home page{% endblock %}
+
+{% block page_content %}
+<h1>Make a comment</h1>
+<form action='' method='post' novalidate>
+    {{ form.hidden_tag() }}
+    <div class="mb-3 mt-3">
+        <label for="post" class="form-label">{{ form.post.label }}</label><br>
+        {{ form.post(cols=50, rows=4) }}<br>
+        {% for error in form.post.errors %}
+        <span style='color: red;'>{{ error }}</span>
+        {% endfor %}
+    </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<div class='row'>
+{% for post in posts %}
+{% include '_post.html' %}
+{% endfor %}
+</div>
+{% endblock %}

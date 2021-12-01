@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Explore articles{% endblock %}
+
+{% block page_content %}
+{% for article in articles %}
+{% include '_article.html' %}
+{% endfor %}
+{% endblock %}

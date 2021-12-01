@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}New avatar{% endblock %}
+
+{% block page_content %}
+<div class='container' style='text-align: center;'>
+<h1>New avatar to collection</h1>
+<form action='' method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.name.label }}<br>
+        {{ form.name(size=30) }}<br>
+        {% for error in form.name.errors %}
+        <span style='color: red;'>{{ error }}</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.url.label }}<br>
+        {{ form.url(size=30) }}<br>
+        {% for error in form.url.errors %}
+        <span style='color: red;'>{{ error }}</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.rarity.label }}<br>
+        {{ form.rarity() }}<br>
+        {% for error in form.rarity.errors %}
+        <span style='color: red;'>{{ error }}</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.submit() }}
+    </p>
+</form>
+</div>
+<h2>Existed characters</h2>
+<div class='row'>
+{% for char in characters %}
+<div class='col-4'>
+<div class='card' style='width: 18rem;'>
+<img src='{{ char.url }}' class='card-img-top'>
+<div class='card-body'>
+    <h5 class='card-title' id='char{{ char.name }}'>{{ char.name }}</h5>
+    <p class='card-text' id='char{{ char.id }}'>Rarity {{ char.rarity }} star</p>
+</div>
+<ul class='list-group list-group-flush'>
+    <li class='list-group-item'>Mainers: {{ char.chosen_by }}</li>
+    <li class='list-group-item'>Top: N</li>
+</ul>
+<div class='card-body'>
+    <button type='button' class='btn btn-primary' onclick="javascript:change_rarity_html('#char{{ char.id }}')">Set</button>
+    <!--<button type='button' class='btn btn-primary' onclick="javascript:">Be mainer</button> -->
+</div>
+</div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src='{{ url_for("static", filename="scripts.js") }}'></script>
+<script>
+   function change_rarity_html(element) {
+       $.post('{{ url_for("user.change_char_rarity") }}')
+       .done(function(changed) {
+           $(element).text(changed['rarity'])
+       }).fail(function() {
+        $(element).text("Error")
+       });
+   }
+</script>
+<script></script>
+{% endblock %}

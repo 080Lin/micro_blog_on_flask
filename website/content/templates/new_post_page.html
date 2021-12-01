@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}New post{% endblock %}
+
+{% block page_content %}
+<h1>New article</h1>
+<div class='container pt-5'>
+<form action='' method='post' novalidate>
+    {{ form.hidden_tag() }}
+    <div class='row'>
+    <div class='col-10'>
+    <label for='{{ form.name }}'>{{ form.name.label }}</label><br>
+    {{ form.name() }}<br>
+    {% for error in form.name.errors %}
+    <span style='color: red;'>{{ error }}</span><br>
+    {% endfor %}
+    <label for='{{ form.body }}'>{{ form.body.label }}</label><br>
+    <textarea class='form-control' id="body" minlength="60" name="body" placeholder="here" required type="text" value=""></textarea>
+    {% for error in form.body.errors %}
+    <span style='color: rgba(255, 59, 59, 0.479);'>{{ error }}</span><br>
+    {% endfor %}
+</div>
+<div class='col-2'>
+    {{ form.theme() }}
+</div>
+</div>
+    <button type='submit' class='btn btn-success'>Post</button>
+
+</form>
+</div>
+{% endblock %}
